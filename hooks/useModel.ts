@@ -1,5 +1,9 @@
 import React from "react";
-import type { ModelLoading, MessageType, ModelStatusResponse } from "@/types/messages";
+import type {
+  ModelLoading,
+  MessageType,
+  ModelStatusResponse,
+} from "@/types/messages";
 
 export const useModel = () => {
   const [modelLoading, setModelLoading] = React.useState<ModelLoading>({
@@ -14,7 +18,9 @@ export const useModel = () => {
   // Function to get model status from background
   const getModelStatus = async () => {
     try {
-      const response = await chrome.runtime.sendMessage({ type: "get-model-status" }) as ModelStatusResponse;
+      const response = (await chrome.runtime.sendMessage({
+        type: "get-model-status",
+      })) as ModelStatusResponse;
       if (response) {
         setModelReady(response.model);
         setModelLoading(response.modelLoading);
@@ -67,10 +73,10 @@ export const useModel = () => {
     };
   }, [modelReady, modelLoading.progress, error]);
 
-  return { 
+  return {
     model: modelReady ? "ready" : null, // Return a simple indicator instead of the actual model
-    modelLoading, 
-    error, 
-    selectedModel 
+    modelLoading,
+    error,
+    selectedModel,
   };
 };
