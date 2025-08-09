@@ -30,13 +30,13 @@ function App() {
     modelLoading.progress !== 1 || loadingResponse || !!error;
   return (
     <div className="w-full h-full px-4 py-2 flex flex-col gap-2 text-base">
-      <div className="flex items-center gap-2">
+      <div className="flex items-center gap-2 z-20">
         <img
           src="/icon/merido-transparent-icon.png"
           alt="logo"
           className="size-11"
         />
-        <h1 className="text-2xl font-bold text-[#f60] -ml-3.5">erido</h1>
+        <h1 className="text-2xl font-bold text-[#f60] -ml-4">erido</h1>
       </div>
 
       {error && (

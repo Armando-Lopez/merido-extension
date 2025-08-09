@@ -1,14 +1,22 @@
 import React from "react";
 import type { MessageType } from "@/types/messages";
+import { personalityPrompts } from "@/utils/sistem-prompts";
 import { ChatCompletionMessageParam } from "@mlc-ai/web-llm";
 
 export const useConversation = (model: any) => {
+  const hasSetSystemPrompt = React.useRef(false);
   const [loadingResponse, setLoadingResponse] = React.useState(false);
   const [streamingMessage, setStreamingMessage] = React.useState<string>("");
   const [messages, setMessages] = React.useState<ChatCompletionMessageParam[]>(
     []
   );
   const [error, setError] = React.useState<string | null>(null);
+
+  React.useEffect(() => {
+    if (hasSetSystemPrompt.current) return;
+    hasSetSystemPrompt.current = true;
+    setMessages((prev) => [...prev, ...personalityPrompts]);
+  }, []);
 
   React.useEffect(() => {
     // Listen for streaming messages from background script
@@ -31,7 +39,6 @@ export const useConversation = (model: any) => {
     // Add message listener
     chrome.runtime.onMessage.addListener(handleMessage);
 
-    // Cleanup
     return () => {
       chrome.runtime.onMessage.removeListener(handleMessage);
     };

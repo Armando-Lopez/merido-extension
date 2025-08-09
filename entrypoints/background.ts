@@ -1,5 +1,6 @@
-import { CreateMLCEngine } from "@mlc-ai/web-llm";
 import { MLCEngine } from "@mlc-ai/web-llm";
+import { modelOptions } from "@/utils/models";
+import { CreateMLCEngine } from "@mlc-ai/web-llm";
 import type {
   MessageType,
   ModelLoading,
@@ -13,10 +14,7 @@ let modelError: string | null = null;
 let modelLoading: ModelLoading = { text: "", progress: 0 };
 
 // List of models to try in order of preference
-const modelOptions = [
-  "Llama-3.1-8B-Instruct-q4f32_1-MLC-1k",
-  "Phi-3-mini-4k-instruct-q4f32_1",
-];
+
 
 const loadModel = async () => {
   if (model) return; // Model already loaded

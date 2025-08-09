@@ -15,7 +15,7 @@ const Messages = ({
           return (
             <div
               key={index}
-              className="ml-auto max-w-3/4 bg-[#f60]/70 p-2 rounded-2xl shadow-lg shadow-[#f60]/30 rounded-tr-none"
+              className="ml-auto max-w-3/4 bg-[#f60]/70 p-2 rounded-2xl shadow-lg shadow-[#f60]/30 rounded-tr-none m"
             >
               <ReactMarkdown disallowedElements={["script"]}>
                 {message?.content as string}
@@ -23,16 +23,18 @@ const Messages = ({
             </div>
           );
         }
-        return (
-          <div
-            key={index}
-            className="mr-auto max-w-3/4 bg-[#f60]/30 p-2 rounded-2xl rounded-tl-none inset-shadow-sm inset-shadow-[#f60]/30"
-          >
-            <ReactMarkdown disallowedElements={["script"]}>
-              {message?.content as string}
-            </ReactMarkdown>
-          </div>
-        );
+        if (message.role === "assistant") {
+          return (
+            <div
+              key={index}
+              className="mr-auto max-w-3/4 bg-[#f60]/30 p-2 rounded-2xl rounded-tl-none inset-shadow-sm inset-shadow-[#f60]/30"
+            >
+              <ReactMarkdown disallowedElements={["script"]}>
+                {message?.content as string}
+              </ReactMarkdown>
+            </div>
+          );
+        }
       })}
       {streamingMessage && (
         <div className="mr-auto max-w-3/4 bg-[#f60]/10 p-2 rounded-2xl rounded-tl-none inset-shadow-sm inset-shadow-[#f60]/30">
